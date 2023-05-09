@@ -9,9 +9,9 @@ def main():
     try:
         logging.debug('Start of Demonstrating s3cr3tx in python.')
         DOC_FORMAT="text/plain"
-        Email_Header="you@example.com"
-        API_Token_Header="YourS3cr3txAPIToken"
-        Auth_Code_Header="YourS3cr3txAuthCode"
+        Email_Header=os.getenv("s3cr3tx_Email")
+        API_Token_Header=os.getenv("s3cr3tx_APIToken")
+        Auth_Code_Header=os.getenv("s3cr3tx_AuthCode")
         EorD_Header="e"
         Input_Header="This is a secret!"
         URL_ROOT = "https://s3cr3tx.com/Values"
