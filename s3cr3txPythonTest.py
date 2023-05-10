@@ -7,7 +7,7 @@ def print_msg(strMessage):
     
 def main():
     try:
-        logging.debug('Start of Demonstrating s3cr3tx in python.')
+        logging.debug('Start of s3cr3tx demo in python.')
         DOC_FORMAT="text/plain"
         Email_Header=os.getenv("s3cr3tx_Email")
         API_Token_Header=os.getenv("s3cr3tx_APIToken")
