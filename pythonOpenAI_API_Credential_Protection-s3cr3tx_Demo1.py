@@ -8,30 +8,28 @@ def print_msg(strMessage):
     
 def main():
     try:
-        # This demo works if you have the openai python module. use the s3cr3tx Python Demo #1 if you would rather use the requests library for openai API calls. 
+        # This demo uses the python requests module for openai API calls. 
         # Demo example without s3cr3tx Assumes you have set the OPENAI_API_KEY to store you OPENAI API Key:
         logging.debug('Start of s3cr3tx demo in python.')
-        #openai.organization = os.getenv("OPENAI_API_ORG")
         openai_api_key_HEADER = "Bearer " + os.getenv("OPENAI_API_KEY")
         URL_ROOT = "https://api.openai.com/v1/models"
         request1 = requests.get(URL_ROOT,headers={"Authorization":openai_api_key_HEADER})
         openai_response = request1.text
         print_msg("response from OpenAI API call to list openai.Models without using s3cr3tx to protect the API credentials: " + str(openai_response))
-        #Now we set the values of two new environment variables to the s3cr3tx encrypted versions of the OPENAI_API_ORG and OPENAI_API_KEY values to protect the values stored in the new environment variables
-        #os.environ["s3cr3tx_OPENAI_API_ORG"] = setS3cr3tx(os.getenv("OPENAI_API_ORG"))
+        #Now we set the value of new environment variable to hold the s3cr3tx encrypted versions of the OPENAI_API_KEY value to protect the API Key
         os.environ["s3cr3tx_OPENAI_API_KEY"] = setS3cr3tx(os.getenv("OPENAI_API_KEY"))
-        #Now our API_Org and API_KEY are encrypted and protected in our new s3cr3tx env vars
+        #Now the API_KEY is encrypted and protected in our new s3cr3tx env var
         #openai_api_key_HEADER = "Bearer " + getS3cr3tx(os.getenv("s3cr3tx_OPENAI_API_KEY"))
-        #For this example we will print the cyphertext values of the new s3cr3tx env vars for you below:
-        #print_msg("s3cr3tx ciphertext for your OPENAI_API_ORG: " + os.environ.get["s3cr3tx_OPENAI_API_ORG"])
+        #Print the cyphertext value of the new s3cr3tx environment var below to show that the value is no longer in clear text, in prod we recommend commenting out the following line:
         print_msg("s3cr3tx ciphertext for your OPENAI_API_KEY: " + os.environ.get("s3cr3tx_OPENAI_API_KEY"))
-        #openai.organization = getS3cr3tx(os.getenv("s3cr3tx_OPENAI_API_ORG")) 
+        #Now we use the ciphertext value as input for the getS3cr3tx method in our Authorization Header value for our OPENAI API Call 
         request2 = requests.get(URL_ROOT,headers={"Authorization":"Bearer " + getS3cr3tx(os.getenv("s3cr3tx_OPENAI_API_KEY"))})
         openai_response_2 = request2.text
+        #As you can see in the response from the API we have the same results and we have protected our API credentials from being stored in cleartext this time.
         print_msg("response from OpenAI API call to list the openai.Models after using s3cr3tx to protect the stored OpenAI API credentials: " + str(openai_response_2))
-        
     except Exception as err:
         print('An error occured: ' + str(err))
+
 def getS3cr3tx(strInput):
     try:
         strInput = str(strInput)
@@ -49,6 +47,7 @@ def getS3cr3tx(strInput):
         return s3cr3tx
     except Exception as err:
         print('An error occured: ' + str(err))  
+        
 def setS3cr3tx(strInput):
     try:
         strInput = str(strInput)
@@ -72,7 +71,6 @@ def elementExists(anything):
         return True
     else:
         return False 
-
 
 if __name__ == "__main__":
     main()
