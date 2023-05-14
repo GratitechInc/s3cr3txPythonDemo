@@ -38,7 +38,7 @@ def getS3cr3tx(strInput):
         Email_Header=os.getenv("s3cr3tx_Email")
         API_Token_Header=os.getenv("s3cr3tx_APIToken")
         Auth_Code_Header=os.getenv("s3cr3tx_AuthCode")
-        #set the vakue to "d" to decrypt the secret using the s3cr3tx API
+        #set the value to "d" to decrypt the secret using the s3cr3tx API
         EorD_Header="d"
         Input_Header=strInput
         URL_ROOT = os.getenv("s3cr3tx_URL")
@@ -56,7 +56,7 @@ def setS3cr3tx(strInput):
         Email_Header=os.getenv("s3cr3tx_Email")
         API_Token_Header=os.getenv("s3cr3tx_APIToken")
         Auth_Code_Header=os.getenv("s3cr3tx_AuthCode")
-        #set the vakue to "e" to encrypt the secret using the s3cr3tx API
+        #set the value to "e" to encrypt the secret using the s3cr3tx API
         EorD_Header="e"
         Input_Header=strInput
         URL_ROOT = os.getenv("s3cr3tx_URL")
